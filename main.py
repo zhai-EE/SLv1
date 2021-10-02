@@ -42,9 +42,9 @@ def plotAcc(acc, save=False, name=runName):
     ax.set_xlabel("epoch")
     ax.set_ylabel("class wise accuracy")
     ax.set_title(name)
-    ax.legend(ncol=2, loc='lower right')
+    #ax.legend(ncol=2, loc='lower right')
     ax.grid()
-    plt.ylim((0.5, 1))
+    plt.ylim((0.8, 1))
     if save:
         plt.savefig(name + ".png")
     plt.show()
@@ -101,10 +101,10 @@ def train_ds():
 if __name__ == '__main__':
     #
     if (True):
-        LossClass = LSRLoss
-        addNoise = True
+        LossClass = nn.CrossEntropyLoss
+        addNoise = False
         runName = f"{LossClass()._get_name()}  isNoisy_{addNoise}"
-        showResDs("LSR - noisy", save=True)
+        showResDs("CE - clean", save=True)
     else:
         #
         # addNoise = False
