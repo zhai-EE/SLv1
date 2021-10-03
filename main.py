@@ -10,9 +10,9 @@ from MyResNet import resnetDs
 from torchvision.transforms.functional import resize
 from torchvision.transforms.functional import InterpolationMode
 
-LossClass = None
+LossClass = None  # 使用哪个loss函数
 addNoise = None
-runName = None
+runName = None  # 根据loss函数和是否加噪声生成一个字符串标识结果
 
 
 def showRes(name):
@@ -42,7 +42,7 @@ def plotAcc(acc, save=False, name=runName):
     ax.set_xlabel("epoch")
     ax.set_ylabel("class wise accuracy")
     ax.set_title(name)
-    #ax.legend(ncol=2, loc='lower right')
+    # ax.legend(ncol=2, loc='lower right')
     ax.grid()
     plt.ylim((0.8, 1))
     if save:
@@ -99,8 +99,8 @@ def train_ds():
 
 
 if __name__ == '__main__':
-    #
     if (True):
+        # 训练或读取结果
         LossClass = nn.CrossEntropyLoss
         addNoise = False
         runName = f"{LossClass()._get_name()}  isNoisy_{addNoise}"
@@ -113,6 +113,6 @@ if __name__ == '__main__':
         # train_ds()
         #
         addNoise = True
-        for LossClass in [ SL, LSRLoss]:
+        for LossClass in [SL, LSRLoss]:
             runName = f"{LossClass()._get_name()}  isNoisy_{addNoise}"
             train_ds()

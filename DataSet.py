@@ -12,6 +12,7 @@ def showImage(imgTensor):
 
 
 def readBatch(i):
+    # 读一个数据文件
     import pickle
     fileName = "./cifar-10-batches-py/data_batch_" + str(i)
     with open(fileName, 'rb') as f:
@@ -27,7 +28,7 @@ def readMetaData():
     return dataDict
 
 
-def fechDataFromFile():
+def fetchDataFromFile():
     datas = []
     labels = []
     for i in range(1, 6):
@@ -47,6 +48,7 @@ def fechDataFromFile():
 
 def addSymmetricNoise(labels, noiseRate):
     ids = range(len(labels))
+    # 随机抽取标签进行翻转
     idToFlip = random.sample(ids, int(noiseRate * len(labels)))
     for id in idToFlip:
         newLabel = random.randrange(10)
@@ -57,8 +59,9 @@ def addSymmetricNoise(labels, noiseRate):
 
 
 class Cifar10_train(Dataset):
+    # 训练集数据
     def __init__(self, addNoise):
-        self.x, self.y = fechDataFromFile()
+        self.x, self.y = fetchDataFromFile()
         self.metadata = readMetaData()
         # 40%标签随机翻转
         if addNoise:
@@ -72,6 +75,7 @@ class Cifar10_train(Dataset):
 
 
 class Cifar10_test(Dataset):
+    # 测试集数据
     def __init__(self):
         import pickle
         fileName = "./cifar-10-batches-py/test_batch"
